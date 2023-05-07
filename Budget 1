@@ -1,0 +1,67 @@
+// Define the alphabet and the key as char arrays
+char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+char[] key = "qwertyuiopasdfghjklzxcvbnm".toCharArray();
+
+// Define a method to encrypt a password
+public static String encrypt(String password) {
+  // Convert the password to lowercase
+  password = password.toLowerCase();
+  // Initialize an empty string for the encrypted password
+  String encrypted = "";
+  // Loop through each character in the password
+  for (char c : password.toCharArray()) {
+    // If the character is in the alphabet, replace it with the corresponding character in the key
+    int index = indexOf(alphabet, c);
+    if (index != -1) {
+      encrypted += key[index];
+    }
+    // Otherwise, keep the character as it is
+    else {
+      encrypted += c;
+    }
+  }
+  // Return the encrypted password
+  return encrypted;
+}
+
+// Define a method to decrypt a password
+public static String decrypt(String encrypted) {
+  // Initialize an empty string for the decrypted password
+  String decrypted = "";
+  // Loop through each character in the encrypted password
+  for (char c : encrypted.toCharArray()) {
+    // If the character is in the key, replace it with the corresponding character in the alphabet
+    int index = indexOf(key, c);
+    if (index != -1) {
+      decrypted += alphabet[index];
+    }
+    // Otherwise, keep the character as it is
+    else {
+      decrypted += c;
+    }
+  }
+  // Return the decrypted password
+  return decrypted;
+}
+
+// Define a helper method to find the index of a character in a char array
+public static int indexOf(char[] array, char c) {
+  int i = 0;
+  for (char ch : array) {
+    if (ch == c) {
+      return i;
+    }
+    i++;
+  }
+  return -1;
+}
+
+// Test the methods
+public static void main(String[] args) {
+  String password = "Hello@123";
+  String encrypted = encrypt(password);
+  String decrypted = decrypt(encrypted);
+  System.out.println("Password: " + password);
+  System.out.println("Encrypted: " + encrypted);
+  System.out.println("Decrypted: " + decrypted);
+}
